@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+  postgresql:
+    restart: unless-stopped
+    image: bitnami/postgresql
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRESQL_USERNAME=bn_keycloak
+      - POSTGRESQL_DATABASE=bitnami_keycloak
+
+  keycloak:
+    restart: unless-stopped
+    image: bitnami/keycloak
+    depends_on:
+      - postgresql
+    ports:
+      - '8095:8080'
